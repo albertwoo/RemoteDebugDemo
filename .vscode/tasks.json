@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/RemoteDebug.sln",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary;ForceNoAlign"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "scp-to-pi",
+            "command": "scp",
+            "dependsOn": "build",
+            "type": "process",
+            "args": [
+                "-r",
+                "./bin/Debug/net8.0/*",
+                "pi@192.168.3.48:~/Playground/RemoteDebug"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
